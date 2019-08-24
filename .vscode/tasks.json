@@ -10,7 +10,37 @@
                 "command": "bin/mac/acme -f cbm -l build/labels -o build/main.prg code/main.asm && /Applications/Vice/x64.app/Contents/MacOS/x64 -moncommands build/labels build/main.prg 2> /dev/null",
             },
             "windows": {
-                "command": "bin\\win\\acme -f cbm -l build/labels -o build/main.prg code/main.asm ; D:/Tools/vice64/x64 -moncommands build/labels build/main.prg"
+                "command": "bin\\win\\acme -f cbm -l build/labels -o build/main.prg code/main.asm ; D:/Tools/vice64/x64 -initbreak 0x0801 -moncommands build/labels build/main.prg"
+            },
+            "linux": {
+                "command": "bin/linux/acme -f cbm -l build/labels -o build/main.prg code/main.asm && x64 -moncommands build/labels build/main.prg 2> /dev/null"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "clear": true
+            },
+            "problemMatcher": {
+                "owner": "acme",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    "regexp": "^(Error - File\\s+(.*), line (\\d+) (\\(Zone .*\\))?:\\s+(.*))$",
+                    "file": 2,
+                    "location": 3,
+                    "message": 1
+                }
+            }
+        },
+        {
+            "label": "build -> C64 -> C64Debugger",
+            "type": "shell",
+            "osx": {
+                "command": "bin/mac/acme -f cbm -l build/labels -o build/main.prg code/main.asm",
+            },
+            "windows": {
+                "command": "bin\\win\\acme -f cbm -l build/labels -o build/main.prg code/main.asm ; bin\\win\\C64Debugger -prg build\\main.prg"
             },
             "linux": {
                 "command": "bin/linux/acme -f cbm -l build/labels -o build/main.prg code/main.asm && x64 -moncommands build/labels build/main.prg 2> /dev/null"
